@@ -4,13 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author ADMIN
  */
-public class Account {
+public class Account implements Serializable{
     private String account;
     private String pass;
     private String lastName;

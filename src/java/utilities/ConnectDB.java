@@ -26,7 +26,7 @@ public class ConnectDB {
         this.hostName = "localhost";
         this.instance = "DIEUVI";
         this.port = "1433";
-        this.dbName = "demo";
+        this.dbName = "ProductIntro";
         this.userName = "sa";
         this.password = "sa123456";
     }
