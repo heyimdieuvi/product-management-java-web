@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -31,13 +32,13 @@
                         <img src="assets/images/img-01.png" alt="IMG"/>
                     </div>
 
-                    <form class="login100-form validate-form">
+                    <form class="login100-form validate-form" action="login" method="post">
                         <span class="login100-form-title">
                             Member Login
                         </span>
 
                         <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                            <input class="input100" type="text" name="email" placeholder="Email">
+                            <input class="input100" type="text" name="account" placeholder="Account">
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -51,8 +52,11 @@
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                         </div>
-
-                        <div class="container-login100-form-btn">
+                        <div class="m-t-10 m-b-10">
+                            <p><c:out value="${message}"/></p>
+                           
+                        </div>
+                        <div class="container-login100-form-btn m-t-10">
                             <button class="login100-form-btn">
                                 Login
                             </button>
