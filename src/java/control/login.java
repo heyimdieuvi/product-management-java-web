@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
 import dao.AccountDAO;
-import java.sql.SQLException;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -37,21 +36,22 @@ public class Login extends HttpServlet {
         String pass = request.getParameter("password");
         try {
             desPage = "login.jsp";
+            //kiem tra xem user co ton tai khong
             if (acc.isEmpty() || pass.isEmpty()) {
                 message = "Invalid input";
                 request.setAttribute("message", message);
-            }else {
+            } else {
                 Account account = accountDao.getExistAccount(acc, pass);
                 if (account != null) {
-                //if Login success -> set attribute in session to store info of user
-                HttpSession session = request.getSession();
-                session.setAttribute("account", account);
-                desPage = "dash-board.jsp";
-            } else {
-                message = "Wrong email or password!!!";
-                //send message to Login page and Login again
-                request.setAttribute("message", message);
-            }
+                    //if Login success -> set attribute in session to store info of user
+                    HttpSession session = request.getSession();
+                    session.setAttribute("account", account);
+                    desPage = "dash-board.jsp";
+                } else {
+                    message = "Wrong email or password!!!";
+                    //send message to Login page and Login again
+                    request.setAttribute("message", message);
+                }
             }
             request.getRequestDispatcher(desPage).forward(request, response);
         } catch (ServletException e) {

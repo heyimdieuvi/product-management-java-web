@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +27,9 @@ public class AccountDAO implements Accessible<Account> {
     private static final String INSERT_ACCOUNT = "INSERT INTO [dbo].[accounts] (account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem) VALUES" + "(?,?,?,?,?,?,?,?,?);";
     private static final String UPDATE_ACCOUNT = "UPDATE accounts SET pass = ?,lastName = ?, firstName = ?, birthday = ?, gender = ?, phone = ?, isUse = ?, roleInSystem = ? where account = ?;";
     private static final String DELETE_ACCOUNT = "DELETE accounts WHERE account = ?;";
-    private static final String GET_ALL_ACCOUNT = "SELECT * FROM accounts WHERE account = ?;";
-    private static final String GET_EXIST_ACCOUNT = "SELECT * FROM accounts WHERE accounERE account = ? and pass = ?t = ? and pass = ?;";
+    private static final String GET_ACCOUNT = "SELECT * FROM accounts WHERE account = ?;";
+    private static final String GET_ALL_ACCOUNT = "SELECT * FROM accounts;";
+    private static final String GET_EXIST_ACCOUNT = "SELECT * FROM accounts WHERE account = ? and pass = ?;";
 
     @Override
     public int insertRec(Account acc) {
@@ -42,8 +44,8 @@ public class AccountDAO implements Accessible<Account> {
             st.setString(7, acc.getPhone());
             st.setBoolean(8, acc.isIsUse());
             st.setInt(9, acc.getRoleInSystem());
-            result = st.executeUpdate();
             
+            result = st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -77,18 +79,67 @@ public class AccountDAO implements Accessible<Account> {
     }
 
     @Override
-    public int deleteRec(Account obj) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int deleteRec(String id) {
+        int res = 0;
+        try ( Connection conn = new ConnectDB().getConnection();  
+                PreparedStatement st = conn.prepareStatement(DELETE_ACCOUNT)) {
+            st.setString(1, id);
+            res = st.executeUpdate();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return res;
     }
 
     @Override
-    public Account getObjectById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Account getObjectById(String acc) {
+        Account currentAcc = null;
+        try ( Connection conn = new ConnectDB().getConnection();  
+                PreparedStatement st = conn.prepareStatement(GET_ACCOUNT)) {
+            st.setString(1, acc);
+            ResultSet res = st.executeQuery();
+            while (res.next()) {
+                String account = res.getString("account");
+                String pass = res.getString("pass");
+                String lastName = res.getString("lastName");
+                String firstName = res.getString("firstName");
+                Date birthday = res.getDate("birthday");
+                boolean gender = res.getBoolean("gender");
+                String phone = res.getString("phone");
+                boolean isUse = res.getBoolean("isUse");
+                int roleInSystem = res.getInt("roleInSystem");
+                
+                currentAcc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.getMessage();
+        }
+        return currentAcc;
     }
 
     @Override
     public List<Account> listAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Account> list = new ArrayList();
+        try ( Connection conn = new ConnectDB().getConnection();  
+                PreparedStatement st = conn.prepareStatement(GET_ALL_ACCOUNT)) {
+            ResultSet res = st.executeQuery();
+            while (res.next()) {
+                String account = res.getString("account");
+                String pass = res.getString("pass");
+                String lastName = res.getString("lastName");
+                String firstName = res.getString("firstName");
+                Date birthday = res.getDate("birthday");
+                boolean gender = res.getBoolean("gender");
+                String phone = res.getString("phone");
+                boolean isUse = res.getBoolean("isUse");
+                int roleInSystem = res.getInt("roleInSystem");
+                
+                list.add(new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.getMessage();
+        }
+        return list;
     }
 
     public Account getExistAccount(String acc, String password) {

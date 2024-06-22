@@ -14,7 +14,7 @@ import java.util.List;
 public interface Accessible<T> {
     int insertRec(T obj);
     int updateRec(T obj);
-    int deleteRec(T obj);
+    int deleteRec(String id);
     T getObjectById (String id);
     List<T> listAll();
     
