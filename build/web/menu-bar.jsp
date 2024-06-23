@@ -29,22 +29,22 @@
                             <a class="nav-link" href="home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Accounts</a>
+                            <a class="nav-link" href="admin/accounts">Accounts</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Products</a>
+                            <a class="nav-link" href="product">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Categories</a>
+                            <a class="nav-link" href="category">Categories</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+<!--                        <li class="nav-item">
+                            <a class="nav-link" href="login">Login</a>
+                        </li>-->
                     </ul>
                     <div class="navbar-text text-white">
                         Welcome, <span class="text-uppercase text-white">Admin</span>
                     </div>
-                    <a class="btn btn-success btn-sm ml-3" href="show">
+                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
                         <i class="fa fa-sign-out"></i> Log Out
                     </a>
                 </div>

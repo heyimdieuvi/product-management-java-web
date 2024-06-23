@@ -1,46 +1,91 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package control;
 
 import dao.AccountDAO;
+import dao.CategoryDAO;
+import dao.ProductDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.sql.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Category;
+import model.Product;
 
-/**
- *
- * @author ADMIN
- */
 public class AccountManagement extends HttpServlet {
+    
+    private static final String HOME = "Home.jsp";
+
+    private ProductDAO productDao = new ProductDAO();
+    private CategoryDAO cateDao = new CategoryDAO();
     private AccountDAO accDao = new AccountDAO();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
-    } 
-
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        try {
+            if (action != null) {
+                switch (action) {
+                    case "new":
+                        showNewForm(request, response);
+                        break;
+                    case "edit":
+                        showEditForm(request, response);
+                        break;
+                    default:
+                        showListAccount(request, response);
+                        break;
+                }
+            } else {
+                showListAccount(request, response);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountManagement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        try {
+            if (action != null) {
+                switch (action) {
+                    case "insert":
+                        insertAccount(request, response);
+                        break;
+                    case "update":
+                        updateAccount(request, response);
+                        break;
+                    case "delete":
+                        deleteAccount(request, response);
+                        break;
+                    default:
+                        showListAccount(request, response);
+                        break;
+                }
+            } else {
+                showListAccount(request, response);
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("This Error is in Account Servlet" + ex.getMessage());
+        }
     }
-    
+
     private void showListAccount(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Account> listUser = accDao.listAll();
-        request.setAttribute("listUser", listUser);
+        List<Account> listAcc = accDao.listAll();
+        System.out.println("Account list size: " + listAcc.size());
+        for (Account acc : listAcc) {
+            System.out.println(acc.getAccount());
+        }
+        request.setAttribute("listAccount", listAcc);
         request.getRequestDispatcher("account-list.jsp").forward(request, response);
     }
 
@@ -48,50 +93,56 @@ public class AccountManagement extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher("account-form.jsp").forward(request, response);
     }
- 
-    //this will send user's info when editing
+
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        String accName = request.getParameter("account");
+        String accName = request.getParameter("accName");
         Account acc = accDao.getObjectById(accName);
-        request.setAttribute("user", acc);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("acccount-form.jsp");
+        request.setAttribute("account", acc);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("account-form.jsp");
         dispatcher.forward(request, response);
     }
 
-    //If insert a exist id -> ???
-    private void insertUser(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
-//        Account newUser = new Account(name, email, country);
-//        userDAO.insertUser(newUser);
-        response.sendRedirect("abv");
-    }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
+    private void deleteAccount(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        String id = request.getParameter("id");
-        accDao.deleteRec(id);
-        response.sendRedirect(request.getContextPath()+"/home");
+        String accName = request.getParameter("accName");
+        accDao.deleteRec(accName);
+        response.sendRedirect(request.getContextPath() + "/account-management");
     }
 
-    //edit user info
-    //**If edited id is exist?? What happend??
-    //No permission to update id -> How to?
-    private void updateUser(HttpServletRequest request, HttpServletResponse response)
+    private void insertAccount(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
-        //get request data
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
-//        User user = new User(id, name, email, country);
-//        userDAO.updateUser(user);
-        response.sendRedirect("list");
+        String account = request.getParameter("account");
+        String pass = request.getParameter("pass");
+        String lastName = request.getParameter("lastName");
+        String firstName = request.getParameter("firstName");
+        Date birthday = Date.valueOf(request.getParameter("birthday"));
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+        String phone = request.getParameter("phone");
+        boolean isUse = Boolean.parseBoolean(request.getParameter("isUse"));
+        int roleInSystem = Integer.parseInt(request.getParameter("roleInSystem"));
+
+        Account newAccount = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
+        accDao.insertRec(newAccount);
+        response.sendRedirect(request.getContextPath() + "/account-management");
     }
 
+    private void updateAccount(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException {
+        String account = request.getParameter("account");
+        String pass = request.getParameter("pass");
+        String lastName = request.getParameter("lastName");
+        String firstName = request.getParameter("firstName");
+        Date birthday = Date.valueOf(request.getParameter("birthday"));
+        boolean gender = Boolean.parseBoolean(request.getParameter("gender"));
+        String phone = request.getParameter("phone");
+        boolean isUse = Boolean.parseBoolean(request.getParameter("isUse"));
+        int roleInSystem = Integer.parseInt(request.getParameter("roleInSystem"));
 
-
+        Account updatedAccount = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
+        accDao.updateRec(updatedAccount);
+        response.sendRedirect(request.getContextPath() + "/account-management");
+    }
+    
+        
 }

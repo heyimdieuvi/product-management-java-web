@@ -14,23 +14,24 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <div>
+<!--        <div>
             <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
                 <a href="https://www.w3schools.com/js/js_examples.asp" target="_blank" 
                    class="navbar-brand" style="margin-left: 10px">
                     User Management App</a>
-                <a href="<%=request.getContextPath()%>/new" class="nav-link" style="color: white">
+                <a href="<%=request.getContextPath()%>/account-management?action=new" class="nav-link" style="color: white">
                     Users
                 </a>
             </nav>
-        </div>
+        </div>-->
+<%@include file="menu-bar.jsp" %>
         <div class="container">
             <div>
                 <h3 class="text-center" style="margin-top: 20px ">                            
                 List of User
                 </h3> 
                 <hr><!-- a line to break content -->
-                <a class="btn btn-success" href="<%=request.getContextPath()%>/new">
+                <a class="btn btn-success" href="<%=request.getContextPath()%>/account-management?action=new">
                     Add New User
                 </a>
             </div>
@@ -39,31 +40,47 @@
                 <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th><!-- comment -->
-                        <th>Country</th>
+                        <th>Account</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>BirthDay</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>Activate</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="user" items="${requestScope.listUser}"> 
+                    <c:forEach var="acc" items="${requestScope.listAccount}"> 
                         <tr>
                             <td>
-                                <c:out value="${user.id}"/> 
+                                <c:out value="${acc.account}"/> 
                             </td>
                             <td>
-                                <c:out value="${user.name}"/>
+                                <c:out value="${acc.lastName}"/>
                             </td>
                             <td>
-                                <c:out value="${user.email}"/>
+                                <c:out value="${acc.firstName}"/>
                             </td>
                             <td>
-                                <c:out value="${user.country}"/>
+                                <c:out value="${acc.birthday}"/>
                             </td>
                             <td>
-                                <a class="btn btn-info" href="edit?id=<c:out value="${user.id}" />">Edit</a>
-                                <a class="btn btn-info" href="delete?id=<c:out value="${user.id}"/>">Delete</a>
+                                <c:out value="${acc.gender}"/>
+                            </td>
+                            <td>
+                                <c:out value="${acc.phone}"/>
+                            </td>
+                            <td>
+                                <c:out value="${acc.isUse}"/>
+                            </td>
+                            <td>
+                                <c:out value="${acc.roleInSystem}"/>
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="account-management?action=edit&accName=<c:out value="${acc.account}" />">Edit</a>
+                                <a class="btn btn-info" href="account-management?action=delete&accName=<c:out value="${acc.account}"/>">Delete</a>
                             </td>
                         </tr>
                         </c:forEach>

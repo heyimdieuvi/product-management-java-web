@@ -44,11 +44,9 @@ public class AccountDAO implements Accessible<Account> {
             st.setString(7, acc.getPhone());
             st.setBoolean(8, acc.isIsUse());
             st.setInt(9, acc.getRoleInSystem());
-            
+
             result = st.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
@@ -57,22 +55,18 @@ public class AccountDAO implements Accessible<Account> {
     @Override
     public int updateRec(Account acc) {
         int result = 0;
-        try ( Connection conn = new ConnectDB().getConnection();  
-                PreparedStatement st = conn.prepareStatement(UPDATE_ACCOUNT)) {
-            st.setString(1, acc.getAccount());
-            st.setString(2, acc.getPass());
-            st.setString(3, acc.getLastName());
-            st.setString(4, acc.getFirstName());
-            st.setDate(5, acc.getBirthday());
-            st.setBoolean(6, acc.isGender());
-            st.setString(7, acc.getPhone());
-            st.setBoolean(8, acc.isIsUse());
-            st.setInt(9, acc.getRoleInSystem());
+        try ( Connection conn = new ConnectDB().getConnection();  PreparedStatement st = conn.prepareStatement(UPDATE_ACCOUNT)) {
+            st.setString(1, acc.getPass());
+            st.setString(2, acc.getLastName());
+            st.setString(3, acc.getFirstName());
+            st.setDate(4, acc.getBirthday());
+            st.setBoolean(5, acc.isGender());
+            st.setString(6, acc.getPhone());
+            st.setBoolean(7, acc.isIsUse());
+            st.setInt(8, acc.getRoleInSystem());
+            st.setString(9, acc.getAccount());
             result = st.executeUpdate();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
@@ -81,24 +75,22 @@ public class AccountDAO implements Accessible<Account> {
     @Override
     public int deleteRec(String id) {
         int res = 0;
-        try ( Connection conn = new ConnectDB().getConnection();  
-                PreparedStatement st = conn.prepareStatement(DELETE_ACCOUNT)) {
+        try ( Connection conn = new ConnectDB().getConnection();  PreparedStatement st = conn.prepareStatement(DELETE_ACCOUNT)) {
             st.setString(1, id);
             res = st.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         return res;
     }
 
     @Override
     public Account getObjectById(String acc) {
         Account currentAcc = null;
-        try ( Connection conn = new ConnectDB().getConnection();  
-                PreparedStatement st = conn.prepareStatement(GET_ACCOUNT)) {
+        try ( Connection conn = new ConnectDB().getConnection();  PreparedStatement st = conn.prepareStatement(GET_ACCOUNT)) {
             st.setString(1, acc);
             ResultSet res = st.executeQuery();
-            while (res.next()) {
+            if (res.next()) {
                 String account = res.getString("account");
                 String pass = res.getString("pass");
                 String lastName = res.getString("lastName");
@@ -108,11 +100,11 @@ public class AccountDAO implements Accessible<Account> {
                 String phone = res.getString("phone");
                 boolean isUse = res.getBoolean("isUse");
                 int roleInSystem = res.getInt("roleInSystem");
-                
+
                 currentAcc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
             }
         } catch (SQLException | ClassNotFoundException e) {
-            e.getMessage();
+            e.printStackTrace();
         }
         return currentAcc;
     }
@@ -120,8 +112,7 @@ public class AccountDAO implements Accessible<Account> {
     @Override
     public List<Account> listAll() {
         List<Account> list = new ArrayList();
-        try ( Connection conn = new ConnectDB().getConnection();  
-                PreparedStatement st = conn.prepareStatement(GET_ALL_ACCOUNT)) {
+        try ( Connection conn = new ConnectDB().getConnection();  PreparedStatement st = conn.prepareStatement(GET_ALL_ACCOUNT)) {
             ResultSet res = st.executeQuery();
             while (res.next()) {
                 String account = res.getString("account");
@@ -133,7 +124,7 @@ public class AccountDAO implements Accessible<Account> {
                 String phone = res.getString("phone");
                 boolean isUse = res.getBoolean("isUse");
                 int roleInSystem = res.getInt("roleInSystem");
-                
+
                 list.add(new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem));
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -144,8 +135,7 @@ public class AccountDAO implements Accessible<Account> {
 
     public Account getExistAccount(String acc, String password) {
         Account currentAcc = null;
-        try ( Connection conn = new ConnectDB().getConnection();  
-                PreparedStatement st = conn.prepareStatement(GET_EXIST_ACCOUNT)) {
+        try ( Connection conn = new ConnectDB().getConnection();  PreparedStatement st = conn.prepareStatement(GET_EXIST_ACCOUNT)) {
             st.setString(1, acc);
             st.setString(2, password);
             ResultSet res = st.executeQuery();
@@ -159,7 +149,7 @@ public class AccountDAO implements Accessible<Account> {
                 String phone = res.getString("phone");
                 boolean isUse = res.getBoolean("isUse");
                 int roleInSystem = res.getInt("roleInSystem");
-                
+
                 currentAcc = new Account(account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem);
             }
         } catch (SQLException | ClassNotFoundException e) {

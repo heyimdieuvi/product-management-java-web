@@ -1,3 +1,9 @@
+<%-- 
+    Document   : admin-home
+    Created on : 23 Jun 2024, 20:31:00
+    Author     : ADMIN
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,7 +30,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="admin/account-management">Manager Account</a>
+                            <a class="nav-link" href="account-management">Manager Account</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="category-management">Manager Category</a>
@@ -135,3 +141,4 @@
         </div>
 
     </body><!-- comment -->
+

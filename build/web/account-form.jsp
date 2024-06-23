@@ -1,90 +1,133 @@
-<%-- 
-    Document   : account-form
-    Created on : 20 Jun 2024, 16:59:10
-    Author     : ADMIN
---%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dash Board</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <body>
-        <!--        <header>
-                    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-                        <a href="https://www.w3schools.com/js/js_examples.asp" target="_blank" 
-                           class="navbar-brand" style="margin-left: 10px">
-                            User Management App</a>
-                        <a href="<%=request.getContextPath()%>/new" class="nav-link" style="color: white">
-                            Users
-                        </a>
-                    </nav>
-                </header>-->
-        <%@include file="menu-bar.jsp" %>
-        <div class="container">
-            <div>
-                <h3 class="text-center" style="margin-top: 20px ">                            
-                    List of User
-                </h3> 
-                <hr><!-- a line to break content -->
-                <a class="btn btn-success" href="<%=request.getContextPath()%>/new">
-                    Add New Account
-                </a>
-            </div>
-            <br>        
-            <div>        
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Account</th>
-                            <th>Last Name</th>
-                            <th>First Name</th><!-- comment -->
-                            <th>Birthday</th>
-                            <th>Gender</th>
-                            <th>Phone</th>
-                            <th>Status</th> <!-- isUse -->
-                            <th>Role</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="user" items="${requestScope.lisAccount}"> 
-                            <tr>
-                                <td>
-                                    <c:out value="${user.account}"/> 
-                                </td>
-                                <td>
-                                    <c:out value="${user.lastName}"/>
-                                </td>
-                                <td>
-                                    <c:out value="${user.firstName}"/>
-                                </td>
-                                <td>
-                                    <c:out value="${user.birthday}"/>
-                                </td>
-                                <td>
-                                    <c:out value="${user.gender}"/>
-                                </td>
-                                <td>
-                                    <c:out value="${user.phone}"/>
-                                </td>
-                                <td>
-                                    <c:out value="${user.isUse}"/>
-                                </td>
-                                <td>
-                                    <a class="btn btn-info" href="edit?id=<c:out value="${user.id}" />">Edit</a>
-                                    <a class="btn btn-info" href="delete?id=<c:out value="${user.id}"/>">Delete</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-    </body>
+<head>
+    <title>User Management Application</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!--    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
+            <div>
+                <a href="https://www.javaguides.net" class="navbar-brand"> User Management App </a>
+            </div>
+
+            <ul class="navbar-nav">
+                <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Users</a></li>
+            </ul>
+        </nav>
+    </header>-->
+    <%@include file="menu-bar.jsp" %>
+            
+    <br>
+    <div class="container col-md-5 card">
+        <div class="container">
+            <h2 class="text-center" style="margin-top: 10px">
+                <c:if test="${account != null}">
+                    Edit User
+                </c:if>
+                <c:if test="${account == null}">
+                    Add New User
+                </c:if>
+            </h2>
+            <c:if test="${account != null}">
+                <form action="account-management" method="post">
+                    <input type="hidden" value="${account.account}" name="account">
+                    <div class="form-group">
+                        <label class="h4">Password: </label>
+                        <input type="password" class="form-control" value="<c:out value="${account.pass}"/>" name="pass">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Last Name: </label>
+                        <input type="text" class="form-control" value="<c:out value="${account.lastName}"/>" name="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">First Name: </label>
+                        <input type="text" class="form-control" value="<c:out value="${account.firstName}"/>" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">BirthDay: </label>
+                        <input type="date" class="form-control" value="<c:out value="${account.birthday}"/>" name="birthday">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Gender: </label>
+                        <select class="form-control" name="gender">
+                            <option value="true" <c:if test="${account.gender}">selected</c:if>>Male</option>
+                            <option value="false" <c:if test="${!account.gender}">selected</c:if>>Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Phone: </label>
+                        <input type="text" class="form-control" value="<c:out value="${account.phone}"/>" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Activate: </label>
+                        <select class="form-control" name="isUse">
+                            <option value="true" <c:if test="${account.isUse}">selected</c:if>>Active</option>
+                            <option value="false" <c:if test="${!account.isUse}">selected</c:if>>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Role: </label>
+                        <input type="number" class="form-control" value="<c:out value="${account.roleInSystem}"/>" name="roleInSystem">
+                    </div>
+                    <button type="submit" name="action" value="update" class="btn btn-success">Save</button>
+                </form>
+            </c:if>
+            <c:if test="${account == null}">
+                <form action="account-management" method="post">
+                    <div class="form-group">
+                        <label class="h4">Account: </label>
+                        <input type="text" class="form-control" name="account">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Password: </label>
+                        <input type="password" class="form-control" name="pass">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Last Name: </label>
+                        <input type="text" class="form-control" name="lastName">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">First Name: </label>
+                        <input type="text" class="form-control" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">BirthDay: </label>
+                        <input type="date" class="form-control" name="birthday">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Gender: </label>
+                        <select class="form-control" name="gender">
+                            <option value="true">Male</option>
+                            <option value="false">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Phone: </label>
+                        <input type="text" class="form-control" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Activate: </label>
+                        <select class="form-control" name="isUse">
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="h4">Role: </label>
+                        <input type="number" class="form-control" name="roleInSystem">
+                    </div>
+                    <button type="submit" name="action" value="insert" class="btn btn-success">Save</button>
+                </form>
+            </c:if>
+        </div>
+    </div>
+
+</body>
+
 </html>

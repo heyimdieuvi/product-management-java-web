@@ -24,10 +24,9 @@
         <param-name>dbPort</param-name>
         <param-value>1433</param-value>
     </context-param>
-    <servlet>
-        <servlet-name>AccountManagement</servlet-name>
-        <servlet-class>control.AccountManagement</servlet-class>
-    </servlet>
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
     <servlet>
         <servlet-name>ProductManagement</servlet-name>
         <servlet-class>control.ProductManagement</servlet-class>
@@ -40,10 +39,22 @@
         <servlet-name>MainController</servlet-name>
         <servlet-class>control.MainController</servlet-class>
     </servlet>
-    <servlet-mapping>
+    <servlet>
         <servlet-name>AccountManagement</servlet-name>
-        <url-pattern>/account-management</url-pattern>
-    </servlet-mapping>
+        <servlet-class>control.AccountManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CategoryManagement</servlet-name>
+        <servlet-class>control.CategoryManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>control.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>control.AdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductManagement</servlet-name>
         <url-pattern>/product-management</url-pattern>
@@ -55,6 +66,22 @@
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountManagement</servlet-name>
+        <url-pattern>/account-management</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CategoryManagement</servlet-name>
+        <url-pattern>/category-management</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/admin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
