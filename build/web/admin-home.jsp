@@ -5,7 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,47 +19,8 @@
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <!--begin of menu-->
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="home">Shoes</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-                    <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="account-management">Manager Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category-management">Manager Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product-management">Manager Product</a>
-                        </li>
-                        <c:choose>
-                            <c:when test="${not empty sessionScope.account}">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
-                                        <i class="fa fa-sign-out"></i> Log Out
-                                    </a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login">Login</a>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-            </div>
-            </div>
-        </nav>
-        
+        <%@include file="menu-bar.jsp" %>
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Welcome To Shoppie</h1>
@@ -116,7 +77,7 @@
                                                 <p class="btn btn-danger btn-block">${product.price} $</p>
                                             </div>
                                             <div class="col">
-                                                <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                                <a class="btn btn-info" href="product-management?action=edit&productId=<c:out value='${product.productId}' />">Edit</a>
                                             </div>
                                         </div>
                                     </div>

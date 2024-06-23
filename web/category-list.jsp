@@ -14,15 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div>
-        <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-            <a href="https://www.example.com" class="navbar-brand" style="margin-left: 10px">
-                Category Management App</a>
-            <a href="<%=request.getContextPath()%>/category-management?action=new" class="nav-link" style="color: white">
-                Categories
-            </a>
-        </nav>
-    </div>
+    <%@include file="menu-bar.jsp" %>
     <div class="container">
         <div>
             <h3 class="text-center" style="margin-top: 20px ">                            

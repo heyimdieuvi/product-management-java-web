@@ -113,7 +113,7 @@ public class MainController extends HttpServlet {
                     url = ADMIN;
                     break;
                 case 2:
-                    url = MANAGER;
+                    url = ADMIN;
                     break;
                 default:
                     url = ERROR;

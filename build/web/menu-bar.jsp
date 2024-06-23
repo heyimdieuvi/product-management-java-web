@@ -4,7 +4,6 @@
     Author     : ADMIN
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,37 +15,45 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark"style="">
+        <!--begin of menu-->
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="font-weight-bold navbar-brand" href="home">Shoppie</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand font-weight-bold" href="home">Shoppie</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="home">Home</a>
+                            <a class="nav-link" href="account-management">Manager Account</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="admin/accounts">Accounts</a>
+                            <a class="nav-link" href="category-management">Manager Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="product">Products</a>
+                            <a class="nav-link" href="product-management">Manager Product</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category">Categories</a>
-                        </li>
-<!--                        <li class="nav-item">
-                            <a class="nav-link" href="login">Login</a>
-                        </li>-->
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.account}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout">
+                                        <i class="fa fa-sign-out"></i> Log Out
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="nav-item">
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=login">
+                                        <i class="fa fa-sign-in"></i> Log In
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
-                    <div class="navbar-text text-white">
-                        Welcome, <span class="text-uppercase text-white">Admin</span>
-                    </div>
-                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
-                        <i class="fa fa-sign-out"></i> Log Out
-                    </a>
                 </div>
             </div>
         </nav>

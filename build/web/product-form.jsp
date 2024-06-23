@@ -15,17 +15,7 @@
 </head>
 <body>
 
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-        <div>
-            <a href="https://www.example.com" class="navbar-brand"> Product Management App </a>
-        </div>
-
-        <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/product-management" class="nav-link">Products</a></li>
-        </ul>
-    </nav>
-</header>
+<%@include file="menu-bar.jsp" %>
 <br>
 <div class="container col-md-5 card">
     <div class="container">

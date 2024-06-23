@@ -10,21 +10,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Account List</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-<!--        <div>
-            <nav class="navbar navbar-expand-md navbar-dark" style="background-color: tomato">
-                <a href="https://www.w3schools.com/js/js_examples.asp" target="_blank" 
-                   class="navbar-brand" style="margin-left: 10px">
-                    User Management App</a>
-                <a href="<%=request.getContextPath()%>/account-management?action=new" class="nav-link" style="color: white">
-                    Users
-                </a>
-            </nav>
-        </div>-->
-<%@include file="menu-bar.jsp" %>
+
+    <%@include file="menu-bar.jsp" %>
         <div class="container">
             <div>
                 <h3 class="text-center" style="margin-top: 20px ">                            

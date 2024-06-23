@@ -20,7 +20,6 @@ import model.Product;
 public class AccountManagement extends HttpServlet {
     
     private static final String HOME = "Home.jsp";
-
     private ProductDAO productDao = new ProductDAO();
     private CategoryDAO cateDao = new CategoryDAO();
     private AccountDAO accDao = new AccountDAO();
@@ -28,6 +27,8 @@ public class AccountManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
             if (action != null) {
@@ -53,6 +54,8 @@ public class AccountManagement extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
             if (action != null) {
@@ -81,10 +84,6 @@ public class AccountManagement extends HttpServlet {
     private void showListAccount(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Account> listAcc = accDao.listAll();
-        System.out.println("Account list size: " + listAcc.size());
-        for (Account acc : listAcc) {
-            System.out.println(acc.getAccount());
-        }
         request.setAttribute("listAccount", listAcc);
         request.getRequestDispatcher("account-list.jsp").forward(request, response);
     }

@@ -32,10 +32,6 @@
         <servlet-class>control.ProductManagement</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>control.Login</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MainController</servlet-name>
         <servlet-class>control.MainController</servlet-class>
     </servlet>
@@ -48,20 +44,12 @@
         <servlet-class>control.CategoryManagement</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Home</servlet-name>
-        <servlet-class>control.Home</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminController</servlet-name>
         <servlet-class>control.AdminController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductManagement</servlet-name>
         <url-pattern>/product-management</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
@@ -74,10 +62,6 @@
     <servlet-mapping>
         <servlet-name>CategoryManagement</servlet-name>
         <url-pattern>/category-management</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Home</servlet-name>
-        <url-pattern>/home</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>

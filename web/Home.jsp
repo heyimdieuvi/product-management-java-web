@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Shoes Store</title>
+        <title>Shoppie</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,48 +13,7 @@
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <!--begin of menu-->
-        <!--begin of menu-->
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="home">Shoes</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-                    <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="account-management">Manager Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category-management">Manager Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product-management">Manager Product</a>
-                        </li>
-                        <c:choose>
-                            <c:when test="${not empty sessionScope.account}">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
-                                        <i class="fa fa-sign-out"></i> Log Out
-                                    </a>
-                                </li>
-                            </c:when>
-                            <c:otherwise>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="login">Login</a>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        
+        <%@include file="menu-bar.jsp" %>
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">High-Quality Shoe Store</h1>
