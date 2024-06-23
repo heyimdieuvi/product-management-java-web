@@ -4,6 +4,8 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +20,14 @@
         <!--begin of menu-->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand font-weight-bold" href="#">Shoppie</a>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.account}">
+                    <a class="navbar-brand font-weight-bold" href="admin">Shoppie</a>
+                    </c:when>
+                    <c:otherwise>
+                    <a class="navbar-brand font-weight-bold" href="main">Shoppie</a>    
+                    </c:otherwise>
+                </c:choose>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

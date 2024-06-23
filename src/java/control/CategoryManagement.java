@@ -22,6 +22,7 @@ public class CategoryManagement extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "login.jsp";
+    
     private CategoryDAO categoryDao = new CategoryDAO();
 
     @Override
@@ -96,6 +97,7 @@ public class CategoryManagement extends HttpServlet {
         List<Category> listCategories = categoryDao.listAll();
         request.setAttribute("listCategories", listCategories);
         request.getRequestDispatcher("category-list.jsp").forward(request, response);
+        
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)

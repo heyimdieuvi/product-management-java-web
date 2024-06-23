@@ -16,6 +16,11 @@
             img{
                 width: 200px;
             }
+            .brief{
+                height: 50px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         </style>
     </head>
     <body>
@@ -54,7 +59,7 @@
                                 <td><c:out value="${product.productId}"/></td>
                                 <td><c:out value="${product.productName}"/></td>
                                 <td><img src="${product.productImage}" alt=""/></td>
-                                <td><c:out value="${product.brief}"/></td>
+                                <td><p class="brief"><c:out value="${product.brief}"/></p></td>
                                 <td><c:out value="${product.postedDate}"/></td>
                                 <td><c:out value="${product.type.categoryName}"/></td>
                                 <td><c:out value="${product.account.account}"/></td>

@@ -23,7 +23,7 @@ import model.Category;
 import model.Product;
 
 public class ProductManagement extends HttpServlet {
-    
+
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "login.jsp";
 
@@ -38,7 +38,7 @@ public class ProductManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-           HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(false);
             if ((Account) session.getAttribute("account") != null) {
                 if (action != null) {
                     switch (action) {

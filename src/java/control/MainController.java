@@ -10,6 +10,7 @@ import dao.ProductDAO;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -108,6 +109,10 @@ public class MainController extends HttpServlet {
         if (checkAccount != null) {
             session = request.getSession(); // Create a new session
             session.setAttribute("account", checkAccount);
+            //luu account len cookie
+            Cookie a = new Cookie("userC", checkAccount.getAccount());
+            Cookie p = new Cookie("passC", checkAccount.getPass());
+            
             switch (checkAccount.getRoleInSystem()) {
                 case 1:
                     response.sendRedirect(ADMIN);

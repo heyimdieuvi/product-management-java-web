@@ -23,7 +23,7 @@
                 </h3> 
                 <hr><!-- a line to break content -->
                 <a class="btn btn-success" href="<%=request.getContextPath()%>/account-management?action=new">
-                    Add New User
+                    Add New Account
                 </a>
             </div>
                     <br>        

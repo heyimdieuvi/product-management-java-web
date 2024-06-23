@@ -62,7 +62,11 @@
                     </div>
                     <div class="form-group">
                         <label class="h4">Role: </label>
-                        <input type="number" class="form-control" value="<c:out value="${account.roleInSystem}"/>" name="roleInSystem">
+                        <select class="form-control" name="roleInSystem">
+                            <option value="1">Admin</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Other</option>
+                        </select>
                     </div>
                     <button type="submit" name="action" value="update" class="btn btn-success">Save</button>
                 </form>
@@ -109,7 +113,11 @@
                     </div>
                     <div class="form-group">
                         <label class="h4">Role: </label>
-                        <input type="number" class="form-control" name="roleInSystem">
+                        <select class="form-control" name="roleInSystem">
+                            <option value="1">Admin</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Other</option>
+                        </select>
                     </div>
                     <button type="submit" name="action" value="insert" class="btn btn-success">Save</button>
                 </form>
