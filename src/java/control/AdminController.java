@@ -37,7 +37,6 @@ public class AdminController extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String url = HOME;
         String action = request.getParameter("action");
         try {
             HttpSession session = request.getSession(false); // Retrieve existing session, if any
@@ -47,13 +46,11 @@ public class AdminController extends HttpServlet {
                         logout(request, response, session);
                         return; 
                     default:
-                        showMain(request, response, session);
-                        break;
+                        showMain(request, response, session);                        break;
                 }
             } else {
                 showMain(request, response, session);
             }
-            request.getRequestDispatcher(url).forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the error
             request.setAttribute("errorMessage", e.getMessage());
@@ -80,8 +77,6 @@ public class AdminController extends HttpServlet {
         List<Product> listProducts = productDao.listAll();
         request.setAttribute("listProducts", listProducts);
         
-        //session.setAttribute("account", account);
-
         request.getRequestDispatcher(HOME).forward(request, response);
     }
 

@@ -44,7 +44,9 @@
                                     <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="logout">Logout</a>
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
+                                        <i class="fa fa-sign-out"></i> Log Out
+                                    </a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -54,28 +56,14 @@
                             </c:otherwise>
                         </c:choose>
                     </ul>
-
-                    <form action="search" method="post" class="form-inline my-2 my-lg-0">
-                        <div class="input-group input-group-sm">
-                            <input name="txt" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary btn-number">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a class="btn btn-success btn-sm ml-3" href="show">
-                            <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
-                        </a>
-                    </form>
-                </div>
+            </div>
             </div>
         </nav>
+        
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">High-Quality Shoe Store</h1>
-                <p class="lead text-muted mb-0">Trust creates the brand with over 10 years of providing high-quality imported shoes from China</p>
+                <h1 class="jumbotron-heading">Welcome To Shoppie</h1>
+                <p class="lead text-muted mb-0">Trust creates the brand with over 10 years of providing high-quality imported products</p>
             </div>
         </section>
         <!--end of menu-->

@@ -14,6 +14,7 @@
     </head>
     <body>
         <!--begin of menu-->
+        <!--begin of menu-->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="home">Shoes</a>
@@ -24,7 +25,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="admin/account-management">Manager Account</a>
+                            <a class="nav-link" href="account-management">Manager Account</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="category-management">Manager Category</a>
@@ -38,7 +39,9 @@
                                     <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="logout">Logout</a>
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout" name="action" value="logout">
+                                        <i class="fa fa-sign-out"></i> Log Out
+                                    </a>
                                 </li>
                             </c:when>
                             <c:otherwise>
@@ -48,24 +51,10 @@
                             </c:otherwise>
                         </c:choose>
                     </ul>
-
-                    <form action="search" method="post" class="form-inline my-2 my-lg-0">
-                        <div class="input-group input-group-sm">
-                            <input name="txt" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary btn-number">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <a class="btn btn-success btn-sm ml-3" href="show">
-                            <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
-                        </a>
-                    </form>
                 </div>
             </div>
         </nav>
+        
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">High-Quality Shoe Store</h1>
