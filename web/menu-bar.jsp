@@ -18,24 +18,24 @@
         <!--begin of menu-->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand font-weight-bold" href="home">Shoppie</a>
+                <a class="navbar-brand font-weight-bold" href="#">Shoppie</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="account-management">Manager Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="category-management">Manager Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="product-management">Manager Product</a>
-                        </li>
                         <c:choose>
                             <c:when test="${not empty sessionScope.account}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="account-management">Manager Account</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="category-management">Manager Category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="product-management">Manager Product</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
                                 </li>

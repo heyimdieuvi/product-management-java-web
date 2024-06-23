@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package control;
 
 import dao.CategoryDAO;
@@ -15,10 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Category;
 
 public class CategoryManagement extends HttpServlet {
 
+    private static final String ERROR = "error.jsp";
+    private static final String LOGIN = "login.jsp";
     private CategoryDAO categoryDao = new CategoryDAO();
 
     @Override
@@ -28,20 +31,25 @@ public class CategoryManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "new":
-                        showNewForm(request, response);
-                        break;
-                    case "edit":
-                        showEditForm(request, response);
-                        break;
-                    default:
-                        showListCategory(request, response);
-                        break;
+            HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "new":
+                            showNewForm(request, response);
+                            break;
+                        case "edit":
+                            showEditForm(request, response);
+                            break;
+                        default:
+                            showListCategory(request, response);
+                            break;
+                    }
+                } else {
+                    showListCategory(request, response);
                 }
             } else {
-                showListCategory(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CategoryManagement.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,23 +63,28 @@ public class CategoryManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "insert":
-                        insertCategory(request, response);
-                        break;
-                    case "update":
-                        updateCategory(request, response);
-                        break;
-                    case "delete":
-                        deleteCategory(request, response);
-                        break;
-                    default:
-                        showListCategory(request, response);
-                        break;
+            HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "insert":
+                            insertCategory(request, response);
+                            break;
+                        case "update":
+                            updateCategory(request, response);
+                            break;
+                        case "delete":
+                            deleteCategory(request, response);
+                            break;
+                        default:
+                            showListCategory(request, response);
+                            break;
+                    }
+                } else {
+                    showListCategory(request, response);
                 }
             } else {
-                showListCategory(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
             System.out.println("This Error is in Category Servlet" + ex.getMessage());

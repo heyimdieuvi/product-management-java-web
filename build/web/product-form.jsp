@@ -16,7 +16,6 @@
 <body>
 
 <%@include file="menu-bar.jsp" %>
-<br>
 <div class="container col-md-5 card">
     <div class="container">
         <h2 class="text-center" style="margin-top: 10px">

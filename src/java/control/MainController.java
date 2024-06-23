@@ -110,10 +110,10 @@ public class MainController extends HttpServlet {
             session.setAttribute("account", checkAccount);
             switch (checkAccount.getRoleInSystem()) {
                 case 1:
-                    url = ADMIN;
+                    response.sendRedirect(ADMIN);
                     break;
                 case 2:
-                    url = ADMIN;
+                    response.sendRedirect(ADMIN);
                     break;
                 default:
                     url = ERROR;

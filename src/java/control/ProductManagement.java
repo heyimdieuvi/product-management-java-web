@@ -17,11 +17,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Category;
 import model.Product;
 
 public class ProductManagement extends HttpServlet {
+    
+    private static final String ERROR = "error.jsp";
+    private static final String LOGIN = "login.jsp";
 
     private ProductDAO productDao = new ProductDAO();
     private CategoryDAO cateDao = new CategoryDAO();
@@ -34,20 +38,25 @@ public class ProductManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "new":
-                        showNewForm(request, response);
-                        break;
-                    case "edit":
-                        showEditForm(request, response);
-                        break;
-                    default:
-                        showListProduct(request, response);
-                        break;
+           HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "new":
+                            showNewForm(request, response);
+                            break;
+                        case "edit":
+                            showEditForm(request, response);
+                            break;
+                        default:
+                            showListProduct(request, response);
+                            break;
+                    }
+                } else {
+                    showListProduct(request, response);
                 }
             } else {
-                showListProduct(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ProductManagement.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,23 +70,28 @@ public class ProductManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "insert":
-                        insertProduct(request, response);
-                        break;
-                    case "update":
-                        updateProduct(request, response);
-                        break;
-                    case "delete":
-                        deleteProduct(request, response);
-                        break;
-                    default:
-                        showListProduct(request, response);
-                        break;
+            HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "insert":
+                            insertProduct(request, response);
+                            break;
+                        case "update":
+                            updateProduct(request, response);
+                            break;
+                        case "delete":
+                            deleteProduct(request, response);
+                            break;
+                        default:
+                            showListProduct(request, response);
+                            break;
+                    }
+                } else {
+                    showListProduct(request, response);
                 }
             } else {
-                showListProduct(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
         } catch (ClassNotFoundException ex) {
             System.out.println("This Error is in Product Servlet" + ex.getMessage());

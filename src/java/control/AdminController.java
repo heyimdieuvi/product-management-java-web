@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Category;
 import model.Product;
 
@@ -39,7 +40,7 @@ public class AdminController extends HttpServlet {
         String action = request.getParameter("action");
         try {
             HttpSession session = request.getSession(false); // Retrieve existing session, if any
-            if (action != null) {
+            if (action != null && (Account)session.getAttribute("account") != null) {
                 switch (action) {
                     case "logout":
                         logout(request, response, session);

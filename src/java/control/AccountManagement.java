@@ -13,13 +13,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Category;
 import model.Product;
 
 public class AccountManagement extends HttpServlet {
-    
-    private static final String HOME = "Home.jsp";
+
+    private static final String ERROR = "error.jsp";
+    private static final String LOGIN = "login.jsp";
     private ProductDAO productDao = new ProductDAO();
     private CategoryDAO cateDao = new CategoryDAO();
     private AccountDAO accDao = new AccountDAO();
@@ -31,21 +33,27 @@ public class AccountManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "new":
-                        showNewForm(request, response);
-                        break;
-                    case "edit":
-                        showEditForm(request, response);
-                        break;
-                    default:
-                        showListAccount(request, response);
-                        break;
+            HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "new":
+                            showNewForm(request, response);
+                            break;
+                        case "edit":
+                            showEditForm(request, response);
+                            break;
+                        default:
+                            showListAccount(request, response);
+                            break;
+                    }
+                } else {
+                    showListAccount(request, response);
                 }
             } else {
-                showListAccount(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AccountManagement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,24 +66,30 @@ public class AccountManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            if (action != null) {
-                switch (action) {
-                    case "insert":
-                        insertAccount(request, response);
-                        break;
-                    case "update":
-                        updateAccount(request, response);
-                        break;
-                    case "delete":
-                        deleteAccount(request, response);
-                        break;
-                    default:
-                        showListAccount(request, response);
-                        break;
+            HttpSession session = request.getSession(false);
+            if ((Account) session.getAttribute("account") != null) {
+                if (action != null) {
+                    switch (action) {
+                        case "insert":
+                            insertAccount(request, response);
+                            break;
+                        case "update":
+                            updateAccount(request, response);
+                            break;
+                        case "delete":
+                            deleteAccount(request, response);
+                            break;
+                        default:
+                            request.getRequestDispatcher(ERROR).forward(request, response);
+                            break;
+                    }
+                } else {
+                    showListAccount(request, response);
                 }
             } else {
-                showListAccount(request, response);
+                request.getRequestDispatcher(LOGIN).forward(request, response);
             }
+
         } catch (ClassNotFoundException ex) {
             System.out.println("This Error is in Account Servlet" + ex.getMessage());
         }
@@ -142,6 +156,5 @@ public class AccountManagement extends HttpServlet {
         accDao.updateRec(updatedAccount);
         response.sendRedirect(request.getContextPath() + "/account-management");
     }
-    
-        
+
 }
